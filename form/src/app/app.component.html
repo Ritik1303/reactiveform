@@ -1,78 +1,121 @@
 <div class="container-fluid">
   <h2>Registration Form</h2>
   <form [formGroup]="registrationform" (ngSubmit)="onSubmit()">
+
     <div class="form-group">
       <input [class.is-invalid]="firstname!.invalid && firstname!.touched" formControlName="firstname" type="text"
         class="form-control" placeholder="First Name">
-      <!-- <small [class.d-none]="firstname!.valid || firstname!.untouched" class="text-danger">First Name is required</small> -->
       <div *ngIf="firstname!.invalid && firstname!.touched">
         <small *ngIf="firstname!.errors?.required" class="text-danger">Firstname is required</small>
         <small *ngIf="firstname!.errors?.minlength" class="text-danger">Firstname too short!</small>
         <small *ngIf="firstname!.errors?.forbiddenname" class="text-danger">'{{firstname!.errors?.forbiddenname.value}}'
           First Name not allowed</small>
+      </div>
+    </div>
 
+
+    <div class="form-group">
+      <input [class.is-invalid]="lastname!.invalid && lastname!.touched" formControlName="lastname" type="text"
+        class="form-control" placeholder="Last Name">
+      <small [class.d-none]="lastname!.valid || lastname!.untouched" class="text-danger">Last Name is required</small>
+    </div>
+
+    <br>
+
+    <div class="form-group">
+      <input [class.is-invalid]="username!.invalid && username!.touched" formControlName="username" type="text"
+        class="form-control" placeholder="Username">
+      <div *ngIf="username!.invalid && username!.touched">
+        <small *ngIf="username!.errors?.required" class="text-danger">Username is required</small>
+        <small *ngIf="username!.errors?.minlength" class="text-danger">username too short!</small>
       </div>
     </div>
 
     <div class="form-group">
-      <input formControlName="lastname" type="text" class="form-control" placeholder="Last Name">
-    </div>
-    <br>
-    <div class="form-group">
-      <input formControlName="username" type="text" class="form-control" placeholder="Username">
-    </div>
-
-    <div class="form-check mb-3">
-      <input class="form-check-input" formControlName="subscribe" type="checkbox" placeholder="Alternate Email">
-      <label class="form-check-label">
-        Make Email Compulsory
-      </label>
-    </div>
-
-    <div class="form-group">
-      
-      <input [class.is-invalid]="email!.invalid && email!.touched" type="email" formControlName="email"
-        class="form-control" placeholder="Email">
-        
-      <small [class.d-none]="email!.valid || email!.untouched" class="text-danger">Email is required</small>
-      <div formArrayName="alternateemail" *ngFor="let email of alternateemail.controls; let i=index">
-        <input type="email" class="form-control my-1" [formControlName]="i">
+      <input [class.is-invalid]="password!.invalid && password!.touched" formControlName="password" type="password"
+        class="form-control" placeholder="Password">
+      <div *ngIf="password!.invalid && password!.touched">
+        <small *ngIf="password!.errors?.required" class="text-danger">Password is required</small>
+        <small *ngIf="password!.errors?.minlength" class="text-danger">Password too short!</small>
       </div>
-      <button type="button" class="btn btn-outline-info btn-sm m-2" (click)="addalternateemail()">Add Email</button>
     </div>
 
-    
-    
-
-    <br>
-    <div class="form-group">
-      <input formControlName="password" type="password" class="form-control" placeholder="Password">
-    </div>
     <div class="form-group">
       <input [class.is-invalid]="registrationform.errors?.mismatch" formControlName="conpassword" type="password"
         class="form-control" placeholder="Confirm Password">
       <small class="text-danger" *ngIf="registrationform.errors?.mismatch">Password do not match!</small>
-
     </div>
     <br>
+
+
+    <div class="form-group">
+      <input [class.is-invalid]="email!.invalid && email!.touched" type="email" formControlName="email"
+        class="form-control" placeholder="Email">
+
+      <small [class.d-none]="email!.valid || email!.untouched" class="text-danger">Email is required</small>
+      <div formArrayName="alternateemail" *ngFor="let email of alternateemail.controls; let i=index">
+        <input type="email" class="form-control my-1" [formControlName]="i" placeholder="Alternate Email">
+      </div>
+      <button type="button" class="btn btn-outline-info btn-sm m-2" (click)="addalternateemail()">Add Email</button>
+    </div>
+
+    <br>
+    <div class="form-group">
+
+      <input [class.is-invalid]="mobile!.invalid && mobile!.touched" type="tel" formControlName="mobile"
+        class="form-control" placeholder="Mobile No,">
+
+      <div *ngIf="mobile!.invalid && mobile!.touched">
+        <small *ngIf="mobile!.errors?.required" class="text-danger">Mobile is required</small>
+        <small *ngIf="mobile!.errors?.minlength" class="text-danger">Not a Mobile No.!</small>
+      </div>
+      <div formArrayName="alternatemobile" *ngFor="let mobile of alternatemobile.controls; let i=index">
+        <input type="tel" class="form-control my-1" [formControlName]="i" placeholder="Alternate Mobile No.">
+      </div>
+      <button type="button" class="btn btn-outline-info btn-sm m-2" (click)="addalternatemobile()">Add Mobile
+        No.</button>
+    </div>
+    <br>
+
     <div formGroupName="address" class="border rounded p-2">
       <label>Address</label>
       <div class="form-group">
         <input formControlName="city" type="text" class="form-control" placeholder="City">
+        <!-- <small [class.d-none]="city!.valid || city!.untouched" class="text-danger">city is required</small> -->
       </div>
 
       <div class="form-group">
         <input formControlName="state" type="text" class="form-control" placeholder="State">
+        <!-- <small [class.d-none]="state!.valid || state!.untouched" class="text-danger">state is required</small> -->
       </div>
 
       <div class="form-group">
         <input formControlName="country" type="text" class="form-control" placeholder="Country">
+        <!-- <small [class.d-none]="country!.valid || country!.untouched" class="text-danger">country is required</small> -->
       </div>
-
     </div>
+    
+    <br>
+    
+    <div class="form-group">
+      <input type="number" class="form-control form-control-sm" formControlName="firstNumber" readonly id="firstNumber">
+    </div>
+    <div class="form-group">
+      <input readonly value="+" class="form-control form-control-sm" id="sign">
+    </div>
+    <div class="form-group">
+      <input type="number" class="form-control form-control-sm" formControlName="secondNumber" readonly
+        id="secondNumber">
+    </div>
+    <div class="form-group">
+      <input placeholder="Answer" type="number" class="form-control form-control-sm" formControlName="answer"
+        id="answer">
+    </div>
+
     <br>
     <button [disabled]="!registrationform.valid" class="btn btn-primary" type="submit">Submit</button>
     <button (click)="load()" class="btn btn-secondary ml-2" type="button">Help</button>
+    {{registrationform.value | json}}
   </form>
-  {{registrationform.value | json}}
+
 </div>
